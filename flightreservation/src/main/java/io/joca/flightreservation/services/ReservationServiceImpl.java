@@ -21,7 +21,7 @@ public class ReservationServiceImpl implements ReservationService {
     private PassengerRepository passengerRepository;
 
     @Autowired
-    private ReservationRepository ReservationRepository;
+    private ReservationRepository reservationRepository;
 
     @Override
     public Reservation bookFlight(ReservationRequest request) {
@@ -42,7 +42,7 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setPassenger(savedPassenger);
         reservation.setCheckedIn(false);
 
-        Reservation savedReservation = ReservationRepository.save(reservation);
+        Reservation savedReservation = reservationRepository.save(reservation);
 
         return savedReservation;
     }
