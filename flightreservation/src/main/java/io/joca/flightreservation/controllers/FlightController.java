@@ -25,7 +25,7 @@ public class FlightController {
         @RequestParam("to") String to,
         @RequestParam("departureDate") @DateTimeFormat(pattern = "MM-dd-yyyy") LocalDate departureDate, Model model) {
         
-        log.info("Searching flights");
+        log.debug("Searching flights");
         model.addAttribute("flights", flightRepository.findFlights(from, to, departureDate));
         return "displayFlights";
     }

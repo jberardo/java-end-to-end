@@ -21,12 +21,13 @@ public class UserController {
 
     @GetMapping("/showReg")
     public String showRegistrationPage() {
-        log.info("showReg called");
+        log.debug("showReg called");
         return "login/registerUser";
     }
 
     @PostMapping("/registerUser")
     public String register(@ModelAttribute("User") User user) {
+        log.debug("Saving user: " + user.getEmail());
         userRepository.save(user);
         return "login/login";
     }
@@ -36,8 +37,10 @@ public class UserController {
         User user = userRepository.findByEmail(email);
         
         if (user.getPassword().equals(password)) {
+            log.debug("Login sucess");
             return "findFlights";
         } else {
+            log.debug("Login failed");
             model.addAttribute("msg", "Invalid email or password. Please try again.");
         }
         
