@@ -1,5 +1,6 @@
 package io.joca.flightreservation.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import lombok.AllArgsConstructor;
@@ -14,8 +15,12 @@ import lombok.Setter;
 @AllArgsConstructor
 public class User extends AbstractEntity {
 
-    private String first_name;
-    private String last_name;
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
     private String email;
     private String password;
 }
