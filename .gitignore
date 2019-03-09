@@ -1,2 +1,4 @@
 complete/
 .vscode/
+*.jar
+*.war
