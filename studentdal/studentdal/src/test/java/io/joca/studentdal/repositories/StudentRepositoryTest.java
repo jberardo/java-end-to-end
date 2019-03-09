@@ -34,4 +34,19 @@ public class StudentRepositoryTest {
         Student student = studentRepository.findById(1L).get();
         System.out.println(student.getName());
     }
+
+    @Test
+    public void testUpdateStudent() {
+        Student student = studentRepository.findById(1L).get();
+        Double newFee = student.getFee() + 1;
+        student.setFee(newFee);
+        studentRepository.save(student);
+    }
+
+    @Test
+    public void TestDeleteStudent() {
+        Student student = new Student();
+        student.setId(1L);
+        studentRepository.delete(student);
+    }
 }
