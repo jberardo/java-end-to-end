@@ -12,6 +12,8 @@
                 Email: <input type="text" name="email"/>
                 Password: <input type="password" name="password"/>
                 <input type="submit" value="Login">
+
+                ${msg}
             </form>
         </pre>
     </body>
