@@ -2,9 +2,11 @@ package io.joca.flightreservation.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import io.joca.flightreservation.entities.User;
 import io.joca.flightreservation.repositories.UserRepository;
@@ -26,6 +28,19 @@ public class UserController {
     @PostMapping("/registerUser")
     public String register(@ModelAttribute("User") User user) {
         userRepository.save(user);
+        return "login/login";
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
+        User user = userRepository.findByEmail(email);
+        
+        if (user.getPassword().equals(password)) {
+            return "findFlights";
+        } else {
+            model.addAttribute("msg", "Invalid email or password. Please try again.");
+        }
+        
         return "login/login";
     }
 }
