@@ -32,6 +32,12 @@ public class UserController {
         return "login/login";
     }
 
+    @GetMapping("/showLogin")
+    public String showLogin() {
+        log.debug("showLogin called");
+        return "login/login";
+    }
+
     @PostMapping("/login")
     public String login(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
         User user = userRepository.findByEmail(email);
