@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import io.joca.flightreservation.entities.User;
 import io.joca.flightreservation.repositories.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -17,7 +19,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         User user = userRepository.findByEmail(username);
 
         if (user == null) {

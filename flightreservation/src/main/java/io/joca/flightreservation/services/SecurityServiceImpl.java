@@ -8,6 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class SecurityServiceImpl implements SecurityService {
 
@@ -20,6 +23,7 @@ public class SecurityServiceImpl implements SecurityService {
     @Override
     public boolean login(String username, String password) {
 
+        log.info("login: " + username);
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
         boolean result = false;

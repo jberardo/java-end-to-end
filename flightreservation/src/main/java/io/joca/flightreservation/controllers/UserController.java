@@ -52,6 +52,7 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
+        log.info("Trying to log in user: " + email + " using: " + password);
         if (securityService.login(email, password)) {
             log.debug("Login sucess");
             return "findFlights";
