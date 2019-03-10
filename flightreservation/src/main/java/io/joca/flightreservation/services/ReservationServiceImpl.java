@@ -10,6 +10,8 @@ import io.joca.flightreservation.entities.Reservation;
 import io.joca.flightreservation.repositories.FlightRepository;
 import io.joca.flightreservation.repositories.PassengerRepository;
 import io.joca.flightreservation.repositories.ReservationRepository;
+import io.joca.flightreservation.util.EmailUtil;
+import io.joca.flightreservation.util.PDFGenerator;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -22,6 +24,12 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Autowired
     private ReservationRepository reservationRepository;
+
+    @Autowired
+    private PDFGenerator pdfGenerator;
+
+    @Autowired
+    private EmailUtil emailUtil;
 
     @Override
     public Reservation bookFlight(ReservationRequest request) {
@@ -44,6 +52,10 @@ public class ReservationServiceImpl implements ReservationService {
 
         Reservation savedReservation = reservationRepository.save(reservation);
 
+        String filePath = "/home/joca//src/End to End Java/flightreservation/docs/" + savedReservation.getId() + ".pdf";
+
+        pdfGenerator.generateItinerary(savedReservation, filePath);
+        emailUtil.sendItinerary(passenger.getEmail(), filePath);
         return savedReservation;
     }
 }
