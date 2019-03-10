@@ -7,7 +7,6 @@ Repo to follow Udemy's online course End to End Java Project Development Using S
 ### Simple examples
 - Student DAL
 - Location Web
-- Vendor Web
 - Document Web
 
 ### More complex
