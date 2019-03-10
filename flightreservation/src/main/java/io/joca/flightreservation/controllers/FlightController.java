@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -28,5 +29,10 @@ public class FlightController {
         log.debug("Searching flights");
         model.addAttribute("flights", flightRepository.findFlights(from, to, departureDate));
         return "displayFlights";
+    }
+
+    @GetMapping("admin/showAddFlight")
+    public String showAddFlight() {
+        return "addFlight";
     }
 }
