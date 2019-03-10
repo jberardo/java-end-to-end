@@ -1,6 +1,7 @@
 package io.joca.flightreservation.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,9 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
     @GetMapping("/showReg")
     public String showRegistrationPage() {
         log.debug("showReg called");
@@ -27,8 +31,12 @@ public class UserController {
 
     @PostMapping("/registerUser")
     public String register(@ModelAttribute("User") User user) {
+        
         log.debug("Saving user: " + user.getEmail());
+
+        user.setPassword(encoder.encode(user.getPassword()));
         userRepository.save(user);
+
         return "login/login";
     }
 
