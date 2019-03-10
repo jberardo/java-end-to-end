@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import io.joca.flightreservation.entities.User;
 import io.joca.flightreservation.repositories.UserRepository;
+import io.joca.flightreservation.services.SecurityService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -22,6 +23,9 @@ public class UserController {
 
     @Autowired
     private BCryptPasswordEncoder encoder;
+
+    @Autowired
+    SecurityService securityService;
 
     @GetMapping("/showReg")
     public String showRegistrationPage() {
@@ -48,9 +52,7 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
-        User user = userRepository.findByEmail(email);
-        
-        if (user.getPassword().equals(password)) {
+        if (securityService.login(email, password)) {
             log.debug("Login sucess");
             return "findFlights";
         } else {
