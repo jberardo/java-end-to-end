@@ -1,5 +1,7 @@
 package io.joca.flightreservation.services;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Autowired
     private EmailUtil emailUtil;
 
+    @Transactional
     @Override
     public Reservation bookFlight(ReservationRequest request) {
         // make payment
