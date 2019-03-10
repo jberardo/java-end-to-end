@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import io.joca.flightreservation.dto.UserDto;
 import io.joca.flightreservation.entities.User;
 import io.joca.flightreservation.repositories.UserRepository;
 import io.joca.flightreservation.services.SecurityService;
@@ -34,11 +35,12 @@ public class UserController {
     }
 
     @PostMapping("/registerUser")
-    public String register(@ModelAttribute("User") User user) {
-        
-        log.debug("Saving user: " + user.getEmail());
-
-        user.setPassword(encoder.encode(user.getPassword()));
+    public String register(@ModelAttribute("User") UserDto userDto) {
+        User user = new User();
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(encoder.encode(userDto.getPassword()));
         userRepository.save(user);
 
         return "login/login";
