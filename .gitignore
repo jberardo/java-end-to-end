@@ -2,3 +2,4 @@ complete/
 .vscode/
 *.jar
 *.war
+logs/flightreservation.log

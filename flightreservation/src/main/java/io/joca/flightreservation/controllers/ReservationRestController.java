@@ -31,6 +31,10 @@ public class ReservationRestController {
 		log.debug("Inside updateReservation() for " + request);
 
 		Reservation reservation = reservationRepository.findById(request.getId()).orElse(null);
+		if (reservation == null) {
+			log.error("No reservation with id " + request.getId() + " found.");
+			return null;
+		}
 		reservation.setNumberOfBags(request.getNumberOfBags());
 		reservation.setCheckedIn(request.getCheckedIn());
 

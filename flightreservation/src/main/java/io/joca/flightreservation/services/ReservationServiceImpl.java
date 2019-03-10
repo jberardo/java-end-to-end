@@ -1,6 +1,9 @@
 package io.joca.flightreservation.services;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import io.joca.flightreservation.dto.ReservationRequest;
@@ -15,6 +18,9 @@ import io.joca.flightreservation.util.PDFGenerator;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
+
+    @Value("${io.joca.flightreservation.itinerary.dirpath}")
+    private String ITINERARY_DIR;
 
     @Autowired
     private FlightRepository flightRepository;
@@ -31,6 +37,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Autowired
     private EmailUtil emailUtil;
 
+    @Transactional
     @Override
     public Reservation bookFlight(ReservationRequest request) {
         // make payment
@@ -52,7 +59,7 @@ public class ReservationServiceImpl implements ReservationService {
 
         Reservation savedReservation = reservationRepository.save(reservation);
 
-        String filePath = "/home/joca//src/End to End Java/flightreservation/docs/" + savedReservation.getId() + ".pdf";
+        String filePath = ITINERARY_DIR + savedReservation.getId() + ".pdf";
 
         pdfGenerator.generateItinerary(savedReservation, filePath);
         emailUtil.sendItinerary(passenger.getEmail(), filePath);

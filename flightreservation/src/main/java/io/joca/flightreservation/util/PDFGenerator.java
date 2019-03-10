@@ -13,7 +13,9 @@ import com.itextpdf.text.Phrase;
 import org.springframework.stereotype.Component;
 
 import io.joca.flightreservation.entities.Reservation;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class PDFGenerator {
     public void generateItinerary(Reservation reservation, String filePath) {
@@ -27,7 +29,7 @@ public class PDFGenerator {
             document.close();
 
         } catch (FileNotFoundException | DocumentException e) {
-            e.printStackTrace();
+			log.error(e.getMessage());
         }
     }
 
