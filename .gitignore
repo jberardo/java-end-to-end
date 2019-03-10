@@ -3,3 +3,5 @@ complete/
 *.jar
 *.war
 logs/flightreservation.log
+checkinangular/src/assets/.gitkeep
+checkinangular/.editorconfig
