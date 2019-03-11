@@ -14,6 +14,7 @@ export class StartcheckinComponent implements OnInit {
   }
 
   onSelect(id){
-    this.router.navigate(['/checkin',id])
+    console.log("Searching reservation...");
+    this.router.navigate(['/checkIn',id])
   }
 }

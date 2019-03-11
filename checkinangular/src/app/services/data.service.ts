@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
@@ -13,6 +13,7 @@ export class DataService {
   constructor(private _http:HttpClient) { }
 
   public getReservation(id:number):any {
+    console.log("Fetching reservation...");
     return this._http.get(this.url+id);
   }
 
